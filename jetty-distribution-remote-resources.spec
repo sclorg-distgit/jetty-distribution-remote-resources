@@ -4,7 +4,7 @@
 
 Name:           %{?scl_prefix}%{pkg_name}
 Version:        1.1
-Release:        8.10%{?dist}
+Release:        8.11%{?dist}
 Summary:        Jetty toolchain artifact for distribution remote resources
 
 License:        ASL 2.0 or EPL
@@ -14,8 +14,8 @@ BuildArch:      noarch
 
 BuildRequires:  %{?scl_prefix_java_common}javapackages-tools
 BuildRequires:  %{?scl_prefix_java_common}maven-local
-BuildRequires:  maven30-maven-remote-resources-plugin
-BuildRequires:  maven30-jetty-toolchain
+BuildRequires:  %{?scl_prefix}maven-remote-resources-plugin
+BuildRequires:  %{?scl_prefix}jetty-toolchain
 
 
 %description
@@ -25,13 +25,13 @@ Jetty toolchain artifact for distribution remote distribution resources
 %setup -q -n %{pkg_name}-%{version}
 
 %build
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 %mvn_build
 %{?scl:EOF}
 
 %install
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 %mvn_install
 %{?scl:EOF}
@@ -42,6 +42,9 @@ set -e -x
 %dir %{_javadir}/%{pkg_name}
 
 %changelog
+* Mon Jan 11 2016 Michal Srb <msrb@redhat.com> - 1.1-8.11
+- maven33 rebuild #2
+
 * Sat Jan 09 2016 Michal Srb <msrb@redhat.com> - 1.1-8.10
 - maven33 rebuild
 
